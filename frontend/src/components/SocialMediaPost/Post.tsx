@@ -58,6 +58,7 @@ const Container = styled.div`
     display: flex;
     font-size: 16px;
     column-gap: 20px;
+    padding-right: 10px;
 `
 
 const Content = styled.div`

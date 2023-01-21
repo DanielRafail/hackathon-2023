@@ -43,9 +43,10 @@ const Container = styled(Widget)`
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-    height: 600px;   
+    height: 100%;
+    width: 100%;  
     padding: 15px;
-    width: 500px;
+    grid-row: 1 / 3;
 `
 
 const EventsContainer = styled.div`

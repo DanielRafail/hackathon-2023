@@ -1,22 +1,22 @@
 import styled from "styled-components";
 import Widget from "../Widget";
 import Header from "../Header";
-import Post from "./Post";
+import WorkPost from "./WorkPost";
 
 
 type IProps = {
 
 }
 
-function SocialMedia(props: IProps) {
+function WorkMessages(props: IProps) {
     const {  } = props;
 
     return (
         <Container>
-            <Header>Social Feeds</Header>
+            <Header>Discord Messages</Header>
             <PostContainer>
                 <Posts>
-                    {posts.map(x => <Post key={x.id} {...x}/>)}
+                    {posts.map(x => <WorkPost key={x.id} {...x}/>)}
                 </Posts>
             </PostContainer>
         </Container>
@@ -33,7 +33,20 @@ const posts = [{
     numberOfComments: "12",
     numberOfShares: "3",
     numberOfLikes: "18",
-    images: ["https://pbs.twimg.com/media/Fm32CldXwAMVutA?format=jpg&name=small"],
+    images: [],
+    source: "Twitter"
+},
+{
+    id: 2,
+    userIcon: "https://scontent.fyhu1-1.fna.fbcdn.net/v/t1.6435-1/56931901_2368123013212582_2495977440426328064_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=5VBpRjX7EWsAX8OtGpt&_nc_ht=scontent.fyhu1-1.fna&oh=00_AfDczjdr9xQk8hTXCVW1w5RsN9eRMbXW5AYsD2GmrG99xQ&oe=63F3CF3E",
+    userName: "Markese Brown",
+    userHandler: "@markeseBrown",
+    time: "12 min",
+    postText: "The new Iphone 16 is out which means its time for my new review!!! Please check it out now on my youtube page and give your feedback!",
+    numberOfComments: "12",
+    numberOfShares: "3",
+    numberOfLikes: "18",
+    images: [],
     source: "Twitter"
 },
 {
@@ -91,4 +104,4 @@ const Posts = styled.div`
     row-gap: 15px;
 `
 
-export default SocialMedia;
+export default WorkMessages;
