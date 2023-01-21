@@ -46,7 +46,6 @@ const Container = styled(Widget)`
     height: 600px;   
     padding: 15px;
     width: 500px;
-    
 `
 
 const EventsContainer = styled.div`
@@ -76,7 +75,7 @@ const EventsContainer = styled.div`
 const Events = styled.div`
     display: flex;
     flex-direction: column;
-    row-gap: 25px;
+    row-gap: 15px;
 `
 
 const calendarInformation: CalendarEventType[] = [

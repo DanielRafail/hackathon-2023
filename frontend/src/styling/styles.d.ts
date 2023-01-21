@@ -10,7 +10,9 @@ declare module 'styled-components' {
         widget: {
             colour: {
                 background: string,
-                text: string
+                mainText: string,
+                subText: string,
+                subSubText: string     
             }
         },
         calendar: {
@@ -19,10 +21,7 @@ declare module 'styled-components' {
                     background: string,
                     financial: string,
                     deadline: string,
-                    social: string,
-                    title: string,
-                    info: string,
-                    timeAndDate: string                    
+                    social: string
                 }
             }
         }

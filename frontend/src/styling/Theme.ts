@@ -9,7 +9,9 @@ export const Theme: DefaultTheme = {
     widget: {
         colour: {
             background: "#1b2028",
-            text: "#ffffff",
+            mainText: "#fff",
+            subText: "#b9b9b9",
+            subSubText: "#838689"     
         },
     },
     calendar: {
@@ -18,10 +20,7 @@ export const Theme: DefaultTheme = {
                 background: "#31353f",
                 financial: "#4B884B",
                 deadline: "#884B4B",
-                social: "#4B4B88",
-                title: "#fff",
-                info: "#b9b9b9",
-                timeAndDate: "#838689"      
+                social: "#4B4B88" 
             }
         }
     }

@@ -1,12 +1,14 @@
 import styled, { ThemeProvider } from "styled-components";
 import { Theme } from "./styling/Theme";
 import Calendar from "./components/Calendar/Calendar";
+import SocialMedia from "./components/SocialMediaPost/SocialMeadia";
 
 function Dashboard() {
   return (
     <ThemeProvider theme={Theme}>
       <MainPage>
-        <Calendar/>
+        {/* <Calendar/> */}
+        <SocialMedia/>
       </MainPage>
     </ThemeProvider>
   );

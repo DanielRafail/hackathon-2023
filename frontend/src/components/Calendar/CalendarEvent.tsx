@@ -61,19 +61,19 @@ const Month = styled.div`
 
 const Description = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: space-around;
     row-gap: 0px;
     width: calc(100% - 75px - 15px);
 `
 
 const Details = styled.div`
-    color: ${props => props.theme.calendar.events.colour.timeAndDate};
+    color: ${props => props.theme.widget.colour.subText};
     font-size: 14px;
 `
 
 const Info = styled.div`
-    color: ${props => props.theme.calendar.events.colour.info};
+    color: ${props => props.theme.widget.colour.subSubText};
     font-size: 14px;
     text-overflow: ellipsis;
     overflow: hidden;

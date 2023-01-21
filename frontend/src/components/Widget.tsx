@@ -18,7 +18,7 @@ function Widget(props: IProps) {
 const Container = styled.div`
     background: ${(props) => props.theme.widget.colour.background};
     border-radius: 15px;
-    color: ${(props) => props.theme.widget.colour.text};
+    color: ${(props) => props.theme.widget.colour.mainText};
 `
 
 export default Widget;
