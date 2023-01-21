@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-type IProps = {
+export type CalendarEventType = {
     day: string,
     month: string,
     title: string,
@@ -12,7 +12,7 @@ type IProps = {
 
 type EventTypes = "financial" | "social" | "deadline"
 
-function CalendarEvent(props: IProps) {
+function CalendarEvent(props: CalendarEventType) {
     const { day, month, title, time, location, information, type } = props;
 
     return (
@@ -64,6 +64,7 @@ const Description = styled.div`
     flex-direction: column;
     justify-content: space-around;
     row-gap: 0px;
+    width: calc(100% - 75px - 15px);
 `
 
 const Details = styled.div`
@@ -74,10 +75,15 @@ const Details = styled.div`
 const Info = styled.div`
     color: ${props => props.theme.calendar.events.colour.info};
     font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 `
 
 const Title = styled.div`
-   
+   text-overflow: ellipsis;
+   overflow: hidden;
+    white-space: nowrap;
 `
 
 export default CalendarEvent;
