@@ -3,6 +3,7 @@ import Widget from "../Widget";
 import CalendarEvent, { CalendarEventType } from "./CalendarEvent";
 import Header from "../Header";
 import { createRef, useEffect, useState } from "react";
+import LoadingAnim from "../LoadingAnim";
 
 type IProps = {};
 
@@ -25,23 +26,42 @@ function Calendar(props: IProps) {
   };
 
   useEffect(() => {
-    console.log("Run Set Timeout");
     setTimeout(() => Scroll(-100), 150);
   }, [container]);
+
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
 
   return (
     <Container>
       <Header>Upcoming Events</Header>
-      <EventsContainer ref={container as any}>
-        <Events>
-          {events.map((x: CalendarEventType) => (
-            <CalendarEvent key={`${x.day}-${x.month}-${x.title}`} {...x} />
-          ))}
-        </Events>
-      </EventsContainer>
+      {loading ? (
+        <Center>
+          <LoadingAnim />
+        </Center>
+      ) : (
+        <EventsContainer ref={container as any}>
+          <Events>
+            {events.map((x: CalendarEventType) => (
+              <CalendarEvent key={`${x.day}-${x.month}-${x.title}`} {...x} />
+            ))}
+          </Events>
+        </EventsContainer>
+      )}
     </Container>
   );
 }
+
+const Center = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Container = styled(Widget)`
   display: flex;
