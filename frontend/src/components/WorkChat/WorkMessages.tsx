@@ -19,9 +19,6 @@ function WorkMessages(props: IProps) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
                 const newPostValue = posts;
                 data.forEach(item => {
-                    if(item.postText.toLowerCase().includes("#workfromhome")){
-                        item.images = []
-                    }
                     newPostValue.push((item))
                 });
                 setPosts([...newPostValue]);
