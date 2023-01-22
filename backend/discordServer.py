@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import discord
 import requests
+from helper.helper import datetime_from_utc_to_local
 
 load_dotenv()
 
@@ -16,21 +17,12 @@ messageHistory = []
 async def on_ready():
     global messageHistory
     data = []
-    historySize = 4
+    historySize = 5
     for guild in client.guilds:
         for channel in guild.channels:
             async for message in channel.history(limit=historySize):
                 if message.author != client.user:
-                    pfp = message.author.avatar
-                    data.append({
-                            'id': message.id,
-                            'postText': message.content,
-                            'time': "message.created_at",
-                            'userName': message.author.name,
-                            "userIcon": pfp.url,
-                            'images': [],
-                            'channel': channel.name
-                        })
+                    setData(data, message, channel)
                     if len(data) == historySize:
                         break
                     
@@ -50,20 +42,28 @@ async def on_message(message):
     
     async for msg in message.channel.history(limit=historySize):
       if msg.author != client.user:
-
-        pfp = message.author.avatar
-        data.append({
-					'id': msg.id,
-					'postText': msg.content,
-					'time': "message.created_at",
-					'userName': message.author.name,
-					"userIcon": pfp.url,
-					'images': [],
-                    'channel': message.channel.name
-				})
+        setData(data, msg, message.channel)
     
     print(f'Sending the data {data}')
     requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
+    
+def setData(data, message, channel):
+    pfp = message.author.avatar
+    localCreatedAt = datetime_from_utc_to_local(message.created_at)
+    time = str(localCreatedAt)[0:str(localCreatedAt).index(".")].split(" ")
+    imgs = []
+    if len(message.attachments) > 0:
+        for image in message.attachments:
+            imgs.append(image.url) 
+            data.append({
+					'id': message.id,
+					'postText': message.content,
+					'time': time[1] + " " +  time[0],
+					'userName': message.author.name,
+					"userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
+					'images': imgs,
+                    'channel' : channel.name
+				})
  
 
 if __name__ == "__main__":

@@ -57,5 +57,5 @@ def receive_new_message():
 	return {}
  
 if __name__ == "__main__":
-	app.run(debug=True, host='0.0.0.0',) 
-	socketio.run(app, debug=True)
+    app.run(debug=True, host='0.0.0.0',) 
+    socketio.run(app, debug=True)
