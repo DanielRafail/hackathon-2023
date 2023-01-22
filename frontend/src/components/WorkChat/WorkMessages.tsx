@@ -5,37 +5,50 @@ import WorkPost, { IWorkPost } from "./WorkPost";
 import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { useEffect, useState } from "react";
+import FallingEmojis from "./emojis.jsx"
+import React from "react";
 
 type IProps = {
   socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
 };
 
 function WorkMessages(props: IProps) {
-  const { socket } = props;
-  const [posts, setPosts] = useState<IWorkPost[]>([]);
+    const { socket } = props;
+    const [posts, setPosts] = useState<IWorkPost[]>([]);
+    const [emojis, setEmojis] = useState(false)
 
-  useEffect(() => {
-    if (socket) {
-      socket.on("WorkMessage", (data: IWorkPost[]) => {
-        const newPostValue = posts;
-        data.forEach((item) => newPostValue.push(item));
-        setPosts([...newPostValue]);
-      });
-    }
-  }, [socket]);
+    useEffect(() => {
+        if (socket) {
+            socket.on("WorkMessage", (data: IWorkPost[]) => {
+                data.map((x, i) => {
+                    const hasEmoji = /\p{Emoji}/u.test(x.postText)
+                    if (hasEmoji && !emojis) {
+                        setEmojis(true);
+                        window.setTimeout(function () {
+                            setEmojis(false);
+                        }, 3500);
+                    }
+                    return null
+                })
 
-  return (
-    <Container>
-      <Header>Discord Messages</Header>
-      <PostContainer>
-        <Posts>
-          {posts.map((x, i) => (
-            <WorkPost key={i} {...x} />
-          ))}
-        </Posts>
-      </PostContainer>
-    </Container>
-  );
+                const newPostValue = posts;
+                data.forEach(item => newPostValue.push((item)));
+                setPosts([...newPostValue]);
+            });
+        }
+    }, [socket]);
+
+    return (
+        <Container>
+            <Header>Discord Messages</Header>
+            <PostContainer id="discord-container">
+                {emojis ? <FallingEmojis /> : <React.Fragment />}
+                <Posts>
+                    {posts.map((x, i) => <WorkPost key={i} {...x} />)}
+                </Posts>
+            </PostContainer>
+        </Container>
+    );
 }
 const Container = styled(Widget)`
   display: flex;
