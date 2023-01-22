@@ -1,3 +1,4 @@
+import threading
 from flask import Flask, request, redirect
 import os
 from dotenv import load_dotenv
@@ -31,10 +32,13 @@ def disconnected():
     print("user disconnected")
     emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
 
-@app.route("/twitter", methods=["GET"])
+@app.route("/api/twitter", methods=["POST"])
 def get_twitter_searches():
-    if request.method == 'GET':
-        return get_google_searches()
+    print("sending social media post")
+    data = request.get_json()
+    socketio.emit("SocialMediaPost", data)
+    return {}
+
       
 @app.route("/api/messageHistory", methods=["POST"])
 def receive_message_history():
