@@ -27,7 +27,7 @@ function ImageViewer(props: IProps) {
 
     return (
         <Container>
-            <Header>#WorkStation {images.length}</Header>
+            <Header>#WorkStation</Header>
             <Slide {...properties}>
                 {images.map((each, index) => (
                 <div key={index} className="each-slide">
