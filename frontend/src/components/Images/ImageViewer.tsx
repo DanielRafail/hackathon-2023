@@ -48,7 +48,7 @@ const Container = styled(Widget)`
 const ImageSlide = styled.img`
   margin-top: 10px;
   max-width: 100%;
-  max-height: 360px;
+  max-height: 330px;
 `;
 
 const EachSlide = styled.div`
