@@ -32,7 +32,7 @@ def disconnected():
     print("user disconnected")
     emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
 
-@app.route("/api/twitter", methods=["POST"])
+@app.route("/api/social_media_posts", methods=["POST"])
 def get_twitter_searches():
     print("sending social media post")
     data = request.get_json()
