@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-type IProps = {
+export type IWorkPost = {
+    id: string,
     userIcon: string,
     userName: string,
     time: string,
@@ -8,7 +9,7 @@ type IProps = {
     images: string[]
 }
 
-function Post(props: IProps) {
+function Post(props: IWorkPost) {
     const { userIcon, userName, time, postText, images } = props;
 
     return (
