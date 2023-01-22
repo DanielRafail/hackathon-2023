@@ -13,7 +13,6 @@ type IProps = {
 };
 
 function WorkMessages(props: IProps) {
-<<<<<<< HEAD
     const { socket } = props;
     const [posts, setPosts] = useState<IWorkPost[]>([]);
     const [emojis, setEmojis] = useState(false)
@@ -27,7 +26,7 @@ function WorkMessages(props: IProps) {
                         setEmojis(true);
                         window.setTimeout(function () {
                             setEmojis(false);
-                        }, 4800);
+                        }, 3500);
                     }
                     return null
                 })
@@ -50,33 +49,6 @@ function WorkMessages(props: IProps) {
             </PostContainer>
         </Container>
     );
-=======
-  const { socket } = props;
-  const [posts, setPosts] = useState<IWorkPost[]>([]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("WorkMessage", (data: IWorkPost[]) => {
-        const newPostValue = posts;
-        data.forEach((item) => newPostValue.push(item));
-        setPosts([...newPostValue]);
-      });
-    }
-  }, [socket]);
-
-  return (
-    <Container>
-      <Header>Discord Messages</Header>
-      <PostContainer>
-        <Posts>
-          {posts.map((x, i) => (
-            <WorkPost key={i} {...x} />
-          ))}
-        </Posts>
-      </PostContainer>
-    </Container>
-  );
->>>>>>> c81a29343909213f4222b81ce868b559568f9b87
 }
 const Container = styled(Widget)`
   display: flex;
