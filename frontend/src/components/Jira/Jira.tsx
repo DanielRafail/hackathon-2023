@@ -17,7 +17,7 @@ function Jira(props: IProps) {
             <Header>Milestones</Header>
             <ProjectContainer>
                 <Projects>
-                    {projects.map(x => <Project key={x.projectName} {...x}/>)}
+                    {projects.map((x,i) => <Project key={i} {...x}/>)}
                 </Projects>
             </ProjectContainer>
         </Container>
@@ -71,21 +71,21 @@ const projects = [
         projectName: "Release 1",
         itemsCompleted: 14,
         totalItems: 100,
-        endDate: "2023-01-29",
+        endDate: "2023/01/29",
         status: "alert"
     },
     {
         projectName: "Release 3",
         itemsCompleted: 90,
         totalItems: 100,
-        endDate: "2023-08-29",
+        endDate: "2023/08/29",
         status: "warning"
     },
     {
         projectName: "Release 2",
         itemsCompleted: 40,
         totalItems: 100,
-        endDate: "2024-01-29",
+        endDate: "2024/01/29",
         status: "good"
     },
 ]

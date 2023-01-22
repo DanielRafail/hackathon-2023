@@ -58,7 +58,6 @@ function Post(props: IPost) {
         content = title as string;
         icon = <RedditIcon src="/icons8-reddit-50.png"/>
     }
-
     return (
         <Container>
             <UserIcon src={userIcon}/>
@@ -72,7 +71,7 @@ function Post(props: IPost) {
                 </Details>
                 <div>{content}</div>
                 {
-                    images.map(x => <PostedImage src={x}/>)
+                    images.map((x, i) => <PostedImage src={x} key={i}/>)
                 }
                 <Footer>
                     {stats}
@@ -117,6 +116,7 @@ const UserIcon = styled.img`
 
 const Time = styled.div`
     font-size: 14px;
+    color:#b9b9b9;
 `
 
 const User = styled.div`

@@ -19,7 +19,6 @@ function ImageViewer(props: IProps) {
     useEffect(() => {
         if (socket) {
             socket.on("WorkFromHomeImages", (data: string[]) => {
-                console.log(data);
                 setImages(data);
             });
         }

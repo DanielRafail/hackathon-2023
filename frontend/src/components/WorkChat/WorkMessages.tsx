@@ -6,6 +6,7 @@ import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { useEffect, useState } from "react";
 
+
 type IProps = {
     socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined
 }
@@ -13,7 +14,7 @@ type IProps = {
 function WorkMessages(props: IProps) {
     const { socket } = props;
     const [posts, setPosts] = useState<IWorkPost[]>([]);
-    
+
     useEffect(() => {
         if (socket) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
@@ -29,7 +30,7 @@ function WorkMessages(props: IProps) {
             <Header>Discord Messages</Header>
             <PostContainer>
                 <Posts>
-                    {posts.map(x => <WorkPost key={x.id} {...x}/>)}
+                    {posts.map((x, i) => <WorkPost key={i} {...x} />)}
                 </Posts>
             </PostContainer>
         </Container>

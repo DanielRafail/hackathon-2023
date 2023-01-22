@@ -20,8 +20,6 @@ function SocialMedia(props: IProps) {
                 const newPostValue = posts;
                 data.forEach(item => newPostValue.push((item)));
                 setPosts([...newPostValue]);
-
-                console.log(data);
             });
         }
     }, [socket]);
@@ -32,7 +30,7 @@ function SocialMedia(props: IProps) {
             <Header>Social Feeds</Header>
             <PostContainer>
                 <Posts>
-                    {posts.map(x => <Post key={x.id} {...x}/>)}
+                    {posts.map((x,i) => <Post key={i} {...x}/>)}
                 </Posts>
             </PostContainer>
         </Container>

@@ -25,7 +25,7 @@ function Post(props: IWorkPost) {
                 </Details>
                 <PostText>{postText}</PostText>
                 {
-                    images.map(x => <PostedImage src={x}/>)
+                    images.map((x,i) => <PostedImage src={x} key={i}/>)
                 }
             </Content>
         </Container>
@@ -70,6 +70,7 @@ const UserIcon = styled.img`
 
 const Time = styled.div`
     font-size: 14px;
+    color: #b9b9b9;
 `
 
 const User = styled.div`
