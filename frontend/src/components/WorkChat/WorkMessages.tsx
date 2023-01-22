@@ -13,13 +13,17 @@ type IProps = {
 function WorkMessages(props: IProps) {
     const { socket } = props;
     const [posts, setPosts] = useState<IWorkPost[]>([]);
-    
+
     useEffect(() => {
         if (socket) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
                 const newPostValue = posts;
-                data.forEach(item => newPostValue.push((item)));
-                console.log(newPostValue)
+                data.forEach(item => {
+                    if(item.postText.toLowerCase().includes("#workfromhome")){
+                        item.images = []
+                    }
+                    newPostValue.push((item))
+                });
                 setPosts([...newPostValue]);
             });
         }
@@ -30,7 +34,7 @@ function WorkMessages(props: IProps) {
             <Header>Discord Messages</Header>
             <PostContainer>
                 <Posts>
-                    {posts.map(x => <WorkPost key={x.id} {...x}/>)}
+                    {posts.map(x => <WorkPost key={x.id} {...x} />)}
                 </Posts>
             </PostContainer>
         </Container>
