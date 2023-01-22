@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import discord
 import requests
 from helper.helper import datetime_from_utc_to_local
+import datetime
 
 load_dotenv()
 
@@ -13,6 +14,9 @@ client = discord.Client(intents=intents)
 guild = discord.Guild
 
 messageHistory = []
+
+def sortByTimestamp(e):
+    return e['date']
 
 @client.event
 async def on_ready():
@@ -26,11 +30,7 @@ async def on_ready():
                 async for message in channel.history(limit=historySize):
                     if message.author != client.user:
                         setData(data, message, channel)
-                        
-            if len(data) == historySize:
-                break
     
-    print(f'Sending the on_ready data {data}')
     
     posts = []
     images = []
@@ -40,6 +40,10 @@ async def on_ready():
             images.extend(post["images"])
         else:
             posts.append(post)
+            
+    posts.sort(key=sortByTimestamp, reverse=True)
+    posts = posts[:5]
+    posts.sort(key=sortByTimestamp)
     
     requests.post("http://127.0.0.1:5000/api/sendImages", json=images)
     requests.post("http://127.0.0.1:5000/api/messageHistory", json=posts)
@@ -74,6 +78,9 @@ def setData(data, message, channel):
     if len(message.attachments) > 0:
         for image in message.attachments:
             imgs.append(image.url) 
+            
+    epoch = datetime.datetime.utcfromtimestamp(0)
+            
     data.append({
         'id': message.id,
         'postText': message.content,
@@ -81,7 +88,8 @@ def setData(data, message, channel):
         'userName': message.author.name,
         "userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
         'images': imgs,
-        'channel' : channel.name
+        'channel' : channel.name,
+        'date': (message.created_at.replace(tzinfo=None) - epoch).total_seconds()
         })
 
 if __name__ == "__main__":
