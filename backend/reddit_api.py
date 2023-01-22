@@ -22,7 +22,7 @@ def get_hot_subreddit_posts(subreddit, number_posts=10):
     
     top_posts = []
 
-    for submission in reddit.subreddit("google").hot(limit=number_posts):
+    for submission in reddit.subreddit(subreddit).hot(limit=number_posts):
         data = {
             'id':submission.id,
             'title':submission.title,
