@@ -1,4 +1,3 @@
-import threading
 from flask import Flask, request, redirect
 import os
 from dotenv import load_dotenv
@@ -50,6 +49,7 @@ def get_twitter_searches():
 @app.route("/api/messageHistory", methods=["POST"])
 def receive_message_history():
 	data = request.get_json()
+	print(data)
 	messageHistory.extend(data)
 	return {}
  
@@ -59,15 +59,7 @@ def receive_new_message():
 	messageHistory.extend(data)
 	socketio.emit("WorkMessage", data)
 	return {}
-
-@app.route("/api/sendImages", methods=["POST"])
-def receive_new_image():
-	data = request.get_json()
-	images.extend(data)
-	socketio.emit("WorkFromHomeImages", data)
-	return {}
- 
  
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',) 
-    socketio.run(app, debug=True)
+	app.run(debug=True, host='0.0.0.0',) 
+	socketio.run(app, debug=True)

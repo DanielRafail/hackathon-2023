@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import discord
 import requests
 from helper.helper import datetime_from_utc_to_local
+import datetime
 
 load_dotenv()
 
@@ -14,32 +15,35 @@ guild = discord.Guild
 
 messageHistory = []
 
+def sortByTimestamp(e):
+    return e['date']
+
 @client.event
 async def on_ready():
     global messageHistory
     data = []
     historySize = 5
+
     for guild in client.guilds:
         for channel in guild.channels:
-            try:
+            if isinstance(channel, discord.TextChannel):
                 async for message in channel.history(limit=historySize):
                     if message.author != client.user:
                         setData(data, message, channel)
-                        if len(data) == historySize:
-                            break
-            except:
-                pass
-                    
-    print(f'Sending the data {data}')
+    
     
     posts = []
     images = []
-    
+
     for post in data:
         if imageHashTag in post["postText"]:
             images.extend(post["images"])
         else:
             posts.append(post)
+            
+    posts.sort(key=sortByTimestamp, reverse=True)
+    posts = posts[:5]
+    posts.sort(key=sortByTimestamp)
     
     requests.post("http://127.0.0.1:5000/api/sendImages", json=images)
     requests.post("http://127.0.0.1:5000/api/messageHistory", json=posts)
@@ -58,18 +62,11 @@ async def on_message(message):
     async for msg in message.channel.history(limit=historySize):
       if msg.author != client.user:
         setData(data, msg, message.channel)
-    
-    if (len(data) == 0):
+    if len(data) == 0:
         return
-    
-    print("SENDING *********************************************")
-    print("SENDING *********************************************")
-    print("SENDING *********************************************")
-    print("SENDING *********************************************")
-    print(f'Sending the data {data}')
-    
-    if (imageHashTag in data["postText"]):
-        requests.post("http://127.0.0.1:5000/api/sendImages", json=data.images)
+    print(f'Sending the on_message data {data}')
+    if (imageHashTag in data[0]["postText"]):
+        requests.post("http://127.0.0.1:5000/api/sendImages", json=data[0].images)
     else:
         requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
     
@@ -81,17 +78,19 @@ def setData(data, message, channel):
     if len(message.attachments) > 0:
         for image in message.attachments:
             imgs.append(image.url) 
-        
-        data.append({
-                'id': message.id,
-                'postText': message.content,
-                'time': time[1],
-                'userName': message.author.name,
-                "userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
-                'images': imgs,
-                'channel' : channel.name
-            })
- 
+            
+    epoch = datetime.datetime.utcfromtimestamp(0)
+            
+    data.append({
+        'id': message.id,
+        'postText': message.content,
+        'time': time[1],
+        'userName': message.author.name,
+        "userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
+        'images': imgs,
+        'channel' : channel.name,
+        'date': (message.created_at.replace(tzinfo=None) - epoch).total_seconds()
+        })
 
 if __name__ == "__main__":
     client.run(os.environ["discord_bot_token"])
