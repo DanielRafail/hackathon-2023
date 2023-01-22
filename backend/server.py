@@ -49,7 +49,6 @@ def get_twitter_searches():
 @app.route("/api/messageHistory", methods=["POST"])
 def receive_message_history():
 	data = request.get_json()
-	print(data)
 	messageHistory.extend(data)
 	return {}
  
@@ -64,7 +63,7 @@ def receive_new_message():
 def receive_new_image():
 	data = request.get_json()
 	images.extend(data)
-	socketio.emit("WorkFromHomeImages", data)
+	socketio.emit("WorkFromHomeImages", images)
 	return {}
  
 if __name__ == "__main__":
