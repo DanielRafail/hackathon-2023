@@ -4,7 +4,7 @@ import Header from "../Header";
 import Post, { IPost } from "./Post";
 import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 
 type IProps = {
   socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
@@ -13,6 +13,24 @@ type IProps = {
 function SocialMedia(props: IProps) {
   const { socket } = props;
   const [posts, setPosts] = useState<IPost[]>([]);
+
+  const container = createRef();
+
+  const Scroll = (previousHeight: number) => {
+    const instance = container.current as any;
+    let height: number = instance.scrollTop + 1;
+    instance.scrollTop = height;
+
+    if (instance.scrollTop == previousHeight && previousHeight >= 1) {
+      instance.scrollTop = 0;
+    }
+
+    setTimeout(() => Scroll(instance.scrollTop), 200);
+  };
+
+  useEffect(() => {
+    setTimeout(() => Scroll(-100), 150);
+  }, [container]);
 
   useEffect(() => {
     if (socket) {
@@ -27,7 +45,7 @@ function SocialMedia(props: IProps) {
   return (
     <Container>
       <Header>Social Feeds</Header>
-      <PostContainer>
+      <PostContainer ref={container as any}>
         <Posts>
           {posts.map((x, i) => (
             <Post key={i} {...x} />
