@@ -19,7 +19,8 @@ function SocialMedia(props: IProps) {
             socket.on("SocialMediaPost", (data: IPost[]) => {
                 const newPostValue = posts;
                 data.forEach(item => newPostValue.push((item)));
-                setPosts([...newPostValue]);
+                console.log(newPostValue);
+                //setPosts([...newPostValue]);
             });
         }
     }, [socket]);

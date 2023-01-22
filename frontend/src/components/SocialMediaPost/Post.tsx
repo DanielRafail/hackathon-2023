@@ -1,4 +1,4 @@
-import { Heart, MessageCircle, Repeat } from "react-feather";
+import { Heart, MessageCircle, Repeat, ThumbsUp, Twitter } from "react-feather";
 import styled from "styled-components";
 
 export type IPost = {
@@ -18,6 +18,40 @@ export type IPost = {
 function Post(props: IPost) {
     const { userIcon, userName, userHandler, time, postText, numberOfComments, numberOfLikes, numberOfShares, images, source  } = props;
 
+    let stats:any = "";
+    let icon:any = "";
+
+    if (source === "Twitter") {
+        
+        stats = <Stats>
+            <TwitterStat>
+                <MessageCircle size={16}/>
+                {numberOfComments}
+            </TwitterStat>
+            <TwitterStat>
+                <Repeat size={16}/>
+                {numberOfShares}
+            </TwitterStat>
+            <TwitterStat>
+                <Heart size={16}/>
+                {numberOfLikes}
+            </TwitterStat>
+        </Stats>;
+
+        icon = <Twitter size={16}/>
+    } else if (source === "Reddit") {
+        stats = <Stats>
+            <TwitterStat>
+                <MessageCircle size={16}/>
+                {numberOfComments}
+            </TwitterStat>
+            <TwitterStat>
+                <ThumbsUp size={16}/>
+                {numberOfLikes}
+            </TwitterStat>
+        </Stats>;
+    }
+
     return (
         <Container>
             <UserIcon src={userIcon}/>
@@ -34,20 +68,7 @@ function Post(props: IPost) {
                     images.map(x => <PostedImage src={x}/>)
                 }
                 <Footer>
-                    <Stats>
-                        <TwitterStat>
-                            <MessageCircle size={16}/>
-                            {numberOfComments}
-                        </TwitterStat>
-                        <TwitterStat>
-                            <Repeat size={16}/>
-                            {numberOfShares}
-                        </TwitterStat>
-                        <TwitterStat>
-                            <Heart size={16}/>
-                            {numberOfLikes}
-                        </TwitterStat>
-                    </Stats>
+                    {stats}
                     <div>{source}</div>
                 </Footer>
             </Content>

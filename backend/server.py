@@ -20,14 +20,16 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 messageHistory = []
 images = []
+socialMediaPosts = []
 
 @socketio.on("connect")
 def connected():
 	"""event listener when client connects to the server"""
 	emit("connect",{"data":f"id: {request.sid} is connected"})
-	print(images)
+	print(socialMediaPosts)
 	emit("WorkMessage", messageHistory)
 	emit("WorkFromHomeImages", images)
+	socketio.emit("SocialMediaPost", socialMediaPosts)
 
 @socketio.on("disconnect")
 def disconnected():
@@ -39,6 +41,8 @@ def disconnected():
 def get_twitter_searches():
     print("sending social media post")
     data = request.get_json()
+    socialMediaPosts.clear()
+    socialMediaPosts.extend(data)
     socketio.emit("SocialMediaPost", data)
     return {}
 
