@@ -59,9 +59,12 @@ async def on_message(message):
       if msg.author != client.user:
         setData(data, msg, message.channel)
     
+    if (len(data) == 0):
+        return
+    
     print(f'Sending the data {data}')
     
-    if (imageHashTag in data.postText):
+    if (imageHashTag in data["postText"]):
         requests.post("http://127.0.0.1:5000/api/sendImages", json=data.images)
     else:
         requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)

@@ -32,7 +32,7 @@ function Dashboard() {
         <SocialMedia socket={socketInstance}/>
         <Jira/>
         <Calendar/>
-        <ImageViewer/>
+        <ImageViewer socket={socketInstance}/>
         <WorkMessages socket={socketInstance}/>
       </MainPage>
     </ThemeProvider>

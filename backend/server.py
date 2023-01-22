@@ -25,8 +25,9 @@ images = []
 def connected():
 	"""event listener when client connects to the server"""
 	emit("connect",{"data":f"id: {request.sid} is connected"})
-	print(messageHistory)
+	print(images)
 	emit("WorkMessage", messageHistory)
+	emit("WorkFromHomeImages", images)
 
 @socketio.on("disconnect")
 def disconnected():
@@ -58,8 +59,8 @@ def receive_new_message():
 @app.route("/api/sendImages", methods=["POST"])
 def receive_new_image():
 	data = request.get_json()
-	messageHistory.extend(data)
-	socketio.emit("Image", data)
+	images.extend(data)
+	socketio.emit("WorkFromHomeImages", data)
 	return {}
  
  
