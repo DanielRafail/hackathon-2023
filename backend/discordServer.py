@@ -19,20 +19,20 @@ async def on_ready():
     historySize = 4
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == "discordtest":
-                async for message in channel.history(limit=historySize):
-                    if message.author != client.user:
-                        pfp = message.author.avatar
-                        data.append({
-                                'id': message.id,
-                                'postText': message.content,
-                                'time': "message.created_at",
-                                'userName': message.author.name,
-                                "userIcon": pfp.url,
-                                'images': []
-                            })
-                        if len(data) == historySize:
-                            break
+            async for message in channel.history(limit=historySize):
+                if message.author != client.user:
+                    pfp = message.author.avatar
+                    data.append({
+                            'id': message.id,
+                            'postText': message.content,
+                            'time': "message.created_at",
+                            'userName': message.author.name,
+                            "userIcon": pfp.url,
+                            'images': [],
+                            'channel': channel.name
+                        })
+                    if len(data) == historySize:
+                        break
                     
     print(f'Sending the data {data}')
     requests.post("http://127.0.0.1:5000/api/messageHistory", json=data)
@@ -58,7 +58,8 @@ async def on_message(message):
 					'time': "message.created_at",
 					'userName': message.author.name,
 					"userIcon": pfp.url,
-					'images': []
+					'images': [],
+                    'channel': message.channel.name
 				})
     
     print(f'Sending the data {data}')

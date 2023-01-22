@@ -6,11 +6,12 @@ export type IWorkPost = {
     userName: string,
     time: string,
     postText: string,
-    images: string[]
+    images: string[],
+    channel: string
 }
 
 function Post(props: IWorkPost) {
-    const { userIcon, userName, time, postText, images } = props;
+    const { userIcon, userName, time, postText, images, channel } = props;
 
     return (
         <Container>
@@ -18,7 +19,7 @@ function Post(props: IWorkPost) {
             <Content>
                 <Details>
                     <User>
-                        <div>{userName}</div>
+                        <div>{userName} <InChannel>in {channel}</InChannel></div>
                     </User>
                     <Time>{time}</Time>
                 </Details>
@@ -73,6 +74,11 @@ const Time = styled.div`
 
 const User = styled.div`
     
+`
+
+const InChannel = styled.span`
+    color: ${props => props.theme.widget.colour.subSubText};
+    font-size: 14px;
 `
 
 export default Post;
