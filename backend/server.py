@@ -31,8 +31,6 @@ def disconnected():
     print("user disconnected")
     emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
 
-
-
 @app.route("/twitter", methods=["GET"])
 def get_twitter_searches():
     if request.method == 'GET':
@@ -42,15 +40,15 @@ def get_twitter_searches():
 def receive_message_history():
 	data = request.get_json()
 	print(data)
-	messageHistory.append(data)
+	messageHistory.extend(data)
 	return {}
  
 @app.route("/api/sendNewMessage", methods=["POST"])
 def receive_new_message():
 	data = request.get_json()
 	print(data)
-	messageHistory.append(data)
-	socketio.emit("WorkMessage", [data])
+	messageHistory.extend(data)
+	socketio.emit("WorkMessage", data)
 	return {}
  
 if __name__ == "__main__":

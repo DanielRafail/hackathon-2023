@@ -16,7 +16,7 @@ messageHistory = []
 async def on_ready():
     global messageHistory
     data = []
-    historySize = 4
+    historySize = 1
     for guild in client.guilds:
         for channel in guild.channels:
             if channel.name == "discordtest":
@@ -40,6 +40,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    print(message)
     global lastMessage
     if message.author == client.user:
         return
@@ -49,10 +50,11 @@ async def on_message(message):
     
     async for msg in message.channel.history(limit=historySize):
       if msg.author != client.user:
+
         pfp = message.author.avatar
         data.append({
-					'id': message.id,
-					'postText': message.content,
+					'id': msg.id,
+					'postText': msg.content,
 					'time': "message.created_at",
 					'userName': message.author.name,
 					"userIcon": pfp.url,

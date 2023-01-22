@@ -17,7 +17,12 @@ function WorkMessages(props: IProps) {
     useEffect(() => {
         if (socket) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
-                setPosts(posts.concat(data));
+                console.log("POSTS:",posts);
+                console.log("DATA:",data);
+                let ff = [...posts, ...data];
+                console.log([...posts, ...data]);
+                setPosts([...posts, ...data]);
+                console.log(posts);
             });
         }
     }, [socket]);
@@ -33,48 +38,6 @@ function WorkMessages(props: IProps) {
         </Container>
     );
 }
-
-const posts = [{
-    id: 1,
-    userIcon: "https://scontent.fyhu1-1.fna.fbcdn.net/v/t1.6435-1/56931901_2368123013212582_2495977440426328064_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=5VBpRjX7EWsAX8OtGpt&_nc_ht=scontent.fyhu1-1.fna&oh=00_AfDczjdr9xQk8hTXCVW1w5RsN9eRMbXW5AYsD2GmrG99xQ&oe=63F3CF3E",
-    userName: "Markese Brown",
-    userHandler: "@markeseBrown",
-    time: "12 min",
-    postText: "The new Iphone 16 is out which means its time for my new review!!! Please check it out now on my youtube page and give your feedback!",
-    numberOfComments: "12",
-    numberOfShares: "3",
-    numberOfLikes: "18",
-    images: [],
-    source: "Twitter"
-},
-{
-    id: 2,
-    userIcon: "https://scontent.fyhu1-1.fna.fbcdn.net/v/t1.6435-1/56931901_2368123013212582_2495977440426328064_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=5VBpRjX7EWsAX8OtGpt&_nc_ht=scontent.fyhu1-1.fna&oh=00_AfDczjdr9xQk8hTXCVW1w5RsN9eRMbXW5AYsD2GmrG99xQ&oe=63F3CF3E",
-    userName: "Markese Brown",
-    userHandler: "@markeseBrown",
-    time: "12 min",
-    postText: "The new Iphone 16 is out which means its time for my new review!!! Please check it out now on my youtube page and give your feedback!",
-    numberOfComments: "12",
-    numberOfShares: "3",
-    numberOfLikes: "18",
-    images: [],
-    source: "Twitter"
-},
-{
-    id: 2,
-    userIcon: "https://scontent.fyhu1-1.fna.fbcdn.net/v/t1.6435-1/56931901_2368123013212582_2495977440426328064_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=5VBpRjX7EWsAX8OtGpt&_nc_ht=scontent.fyhu1-1.fna&oh=00_AfDczjdr9xQk8hTXCVW1w5RsN9eRMbXW5AYsD2GmrG99xQ&oe=63F3CF3E",
-    userName: "Markese Brown",
-    userHandler: "@markeseBrown",
-    time: "12 min",
-    postText: "The new Iphone 16 is out which means its time for my new review!!! Please check it out now on my youtube page and give your feedback!",
-    numberOfComments: "12",
-    numberOfShares: "3",
-    numberOfLikes: "18",
-    images: [],
-    source: "Twitter"
-},
-];
-
 const Container = styled(Widget)`
     display: flex;
     flex-direction: column;
