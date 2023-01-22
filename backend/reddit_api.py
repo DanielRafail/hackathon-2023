@@ -33,9 +33,9 @@ def get_hot_subreddit_posts(subreddit, number_posts=10):
             'numberOfLikes':submission.score,
             'numberOfComments':submission.num_comments,
             'numberOfShares':0,
-            'time':submission.created_utc,
+            'time':"submission.created_utc",
             'source':'Reddit',
-            'images':[]
+            'images': []
         }
         top_posts.append(data)
 
