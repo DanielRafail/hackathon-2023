@@ -4,9 +4,10 @@ import Header from "../Header";
 import WorkPost, { IWorkPost } from "./WorkPost";
 import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { useEffect, useState } from "react";
 import FallingEmojis from "./emojis.jsx"
-import React from "react";
+
+import React, { useEffect, useRef, useState } from "react";
+import autoAnimate from '@formkit/auto-animate'
 
 type IProps = {
   socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
@@ -16,6 +17,16 @@ function WorkMessages(props: IProps) {
     const { socket } = props;
     const [posts, setPosts] = useState<IWorkPost[]>([]);
     const [emojis, setEmojis] = useState(false)
+
+  const parentRef = useRef(null)
+
+  useEffect(() => {
+    if (parentRef.current) {
+      autoAnimate(parentRef.current);   
+    }
+    // eslint-disable-next-line no-restricted-globals
+  }, [parent])
+
 
     useEffect(() => {
         if (socket) {

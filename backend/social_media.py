@@ -20,4 +20,4 @@ while True:
     requests.post("http://127.0.0.1:5000/api/social_media_posts",
                   json=combined_posts)
 
-    time.sleep(500.0)
+    time.sleep(15.0)
