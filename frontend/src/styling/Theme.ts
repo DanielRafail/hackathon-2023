@@ -18,9 +18,18 @@ export const Theme: DefaultTheme = {
         events: {
             colour: {
                 background: "#31353f",
-                financial: "#4B884B",
-                deadline: "#884B4B",
-                social: "#4B4B88" 
+                financial: "#9ABF97",
+                deadline: "#CF6363",
+                social: "#73ADBF" 
+            }
+        }
+    },
+    jira: {
+        project: {
+            colour: {
+                good: "#9ABF97",
+                warning: "#D99157",
+                alert: "#CF6363"
             }
         }
     }
