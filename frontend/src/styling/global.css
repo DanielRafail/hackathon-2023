@@ -16,23 +16,12 @@ body, html {
 
 
 * {
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    -ms-box-sizing: border-box !important;
-    box-sizing: border-box !important;
+  -webkit-box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  -ms-box-sizing: border-box !important;
+  box-sizing: border-box !important;
 }
 
-#container {
-    left: 0px;
-    top: -100px;
-    height: calc(100vh + 100px);
-    overflow: hidden;
-    position: relative;
-  }
-  
-  #animate{
-    margin: 0 auto;
-    width: 20px;
-    overflow: visible;
-    position: relative;
-  }
+:root {
+	--twinkle-duration: 4s;
+}

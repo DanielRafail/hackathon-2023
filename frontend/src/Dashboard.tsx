@@ -8,6 +8,7 @@ import { Socket, io } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import Jira from "./components/Jira/Jira";
 import ImageViewer from "./components/Images/ImageViewer";
+import StarryNight from "./components/StarryNight";
 
 function Dashboard() {
   const [socketInstance, setSocketInstance] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
@@ -34,19 +35,21 @@ function Dashboard() {
         <Calendar/>
         <ImageViewer socket={socketInstance}/>
         <WorkMessages socket={socketInstance}/>
+        <StarryNight/>
       </MainPage>
     </ThemeProvider>
   );
 }
 
 const MainPage = styled.div`
-  background: ${(props) => props.theme.main.colour.background};
+  // background: ${(props) => props.theme.main.colour.background};
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   row-gap: 10px;
   column-gap: 20px;
   padding: 20px;
+  position: relative;
   overflow: hidden;
   height: 100vh;
   width: 100vw;
