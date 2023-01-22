@@ -31,21 +31,23 @@ function Project(props: {
 
   return (
     <Container>
-      <Information>
-        <Name>
-          <img
-            src={avatarUrls["16x16"]}
-            width="16"
-            height={"16"}
-            style={{ margin: "0.5rem", marginLeft: 0 }}
-          ></img>{" "}
-          {name} / {milestone.name}{" "}
-        </Name>
-        <DateAndCircle>
-          <EndDate>Target: {milestone.releaseDate}</EndDate>
-        </DateAndCircle>
-      </Information>
-      <Description>{milestone.description}</Description>
+      <div>
+        <Information>
+          <Name>
+            <img
+              src={avatarUrls["16x16"]}
+              width="16"
+              height={"16"}
+              style={{ margin: "0.5rem", marginLeft: 0 }}
+            ></img>{" "}
+            {name} / {milestone.name}{" "}
+          </Name>
+          <DateAndCircle>
+            <EndDate>Target: {milestone.releaseDate}</EndDate>
+          </DateAndCircle>
+        </Information>
+        <Description>{milestone.description}</Description>
+      </div>
       <Track>
         <Text>{`${milestone.issuesCount - milestone.issuesUnresolvedCount}/${
           milestone.issuesCount
@@ -80,7 +82,7 @@ const DateAndCircle = styled.div`
   column-gap: 2px;
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   color: ${(props) => props.theme.widget.colour.subText};
   font-size: 16px;
 `;

@@ -70,6 +70,7 @@ const Container = styled(Widget)`
   height: 100%;
   width: 100%;
   padding: 15px;
+  grid-row: 1 / 6;
 `;
 
 const EventsContainer = styled.div`
@@ -104,58 +105,58 @@ const Events = styled.div`
 
 const calendarInformation: CalendarEventType[] = [
   {
-    day: "06",
+    day: "25",
     month: "Jan",
-    title: "Q1 Financial Report",
-    time: "9:30pm",
-    information: "Small notes about what is going to happen with the event",
-    location: "Montreal, Qc",
-    type: "financial",
+    title: "Flutter Forward",
+    time: "5:30pm",
+    information: "See how Flutter is pushing UI development forward.",
+    location: "Virtual | Nairobi, Kenya",
+    type: "development",
   },
   {
-    day: "20",
-    month: "May",
-    title: "Jonathan's Birthday Party",
-    time: "9:30pm",
-    information: "This is the party of the century!!!",
-    location: "Montreal, Qc",
-    type: "social",
-  },
-  {
-    day: "14",
-    month: "Jun",
-    title: "Release 3.4",
-    time: "all day",
-    information: "Release date is current set and ready to go!",
-    location: "Montreal, Qc",
-    type: "deadline",
-  },
-  {
-    day: "08",
+    day: "31",
     month: "Jan",
-    title: "Q1 Financial Report",
-    time: "9:30pm",
-    information: "Small notes about what is going to happen with the event",
-    location: "Montreal, Qc",
-    type: "financial",
+    title: "Google for Startups Accelerator Japan",
+    time: "9:00 am",
+    information: "Google Accelerator program in Japan - Class 5",
+    location: "Tokyo, Japan",
+    type: "entrepreneur",
   },
   {
-    day: "23",
-    month: "May",
-    title: "Jonathan's Birthday Party",
-    time: "9:30pm",
-    information: "This is the party of the century!!!",
-    location: "Montreal, Qc",
+    day: "01",
+    month: "Feb",
+    title: "Google for Startups Accelerator Canada",
+    time: "9:00 am",
+    information: "Join the fourth cohort of high-potential Canadian startups in a 10-week program.",
+    location: "Virtual",
+    type: "entrepreneur",
+  },
+  {
+    day: "02",
+    month: "Feb",
+    title: "Android Day 2023 on Google Open Source Live",
+    time: "12:00 pm",
+    information: "Join to learn about Linux Kernal in AOSP (GKI, ACK, and ABI)",
+    location: "Virtual",
+    type: "development",
+  },
+  {
+    day: "12",
+    month: "Feb",
+    title: "Kick Start",
+    time: "9:00 am",
+    information: "Kick Start is a global online coding competition",
+    location: "Virtual | San Francisco",
+    type: "development",
+  },
+  {
+    day: "16",
+    month: "Feb",
+    title: "5@7 Montreal",
+    time: "5:00 pm",
+    information: "Relax and enjoy at our 5@7, open to all!",
+    location: "Google offices, Montreal",
     type: "social",
-  },
-  {
-    day: "24",
-    month: "Jun",
-    title: "Release 3.4",
-    time: "all day",
-    information: "Release date is current set and ready to go!",
-    location: "Montreal, Qc",
-    type: "deadline",
   },
 ];
 

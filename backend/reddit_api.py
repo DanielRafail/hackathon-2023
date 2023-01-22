@@ -20,6 +20,7 @@ def get_hot_subreddit_posts(subreddit, number_posts=10):
     if reddit.read_only is False:
         raise Exception("Reddit API not connected")
     
+    print(reddit.read_only)
     top_posts = []
 
     for submission in reddit.subreddit(subreddit).hot(limit=number_posts):
@@ -38,5 +39,6 @@ def get_hot_subreddit_posts(subreddit, number_posts=10):
             'images':[],
         }
         top_posts.append(data)
+        print(data)
 
     return top_posts

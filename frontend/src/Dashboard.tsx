@@ -9,33 +9,37 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import Jira from "./components/Jira/Jira";
 import ImageViewer from "./components/Images/ImageViewer";
 import StarryNight from "./components/StarryNight";
+import Logo from "./components/Logo";
 
 function Dashboard() {
-  const [socketInstance, setSocketInstance] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
+  const [socketInstance, setSocketInstance] =
+    useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
 
   useEffect(() => {
-      const socket = io('http://127.0.0.1:5000/');
-      setSocketInstance(socket);
+    document.title = "Revibing - Google";
+    const socket = io("http://127.0.0.1:5000/");
+    setSocketInstance(socket);
 
-      //@ts-ignore
-      socket.on("connect", (data: any) => {
-        console.log("Connected to the socket");
-      });
+    //@ts-ignore
+    socket.on("connect", (data: any) => {
+      console.log("Connected to the socket");
+    });
 
-      return function cleanup() {
-          socket.disconnect();
-      };
+    return function cleanup() {
+      socket.disconnect();
+    };
   }, []);
 
   return (
     <ThemeProvider theme={Theme}>
       <MainPage>
-        <SocialMedia socket={socketInstance}/>
-        <Jira socket={socketInstance}/>
-        <Calendar/>
-        <ImageViewer socket={socketInstance}/>
-        <WorkMessages socket={socketInstance}/>
-        <StarryNight/>
+        <Logo />
+        <SocialMedia socket={socketInstance} />
+        <Jira socket={socketInstance} />
+        <Calendar />
+        <ImageViewer socket={socketInstance} />
+        <WorkMessages socket={socketInstance} />
+        <StarryNight />
       </MainPage>
     </ThemeProvider>
   );
@@ -45,7 +49,7 @@ const MainPage = styled.div`
   // background: ${(props) => props.theme.main.colour.background};
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: repeat(10, minmax(0, 1fr));
   row-gap: 10px;
   column-gap: 20px;
   padding: 20px;
@@ -53,6 +57,6 @@ const MainPage = styled.div`
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-`
+`;
 
 export default Dashboard;

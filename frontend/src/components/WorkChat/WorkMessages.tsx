@@ -8,12 +8,12 @@ import { useEffect, useState } from "react";
 import FallingEmojis from "./emojis.jsx"
 import React from "react";
 
-
 type IProps = {
-    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined
-}
+  socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined;
+};
 
 function WorkMessages(props: IProps) {
+<<<<<<< HEAD
     const { socket } = props;
     const [posts, setPosts] = useState<IWorkPost[]>([]);
     const [emojis, setEmojis] = useState(false)
@@ -50,45 +50,73 @@ function WorkMessages(props: IProps) {
             </PostContainer>
         </Container>
     );
+=======
+  const { socket } = props;
+  const [posts, setPosts] = useState<IWorkPost[]>([]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("WorkMessage", (data: IWorkPost[]) => {
+        const newPostValue = posts;
+        data.forEach((item) => newPostValue.push(item));
+        setPosts([...newPostValue]);
+      });
+    }
+  }, [socket]);
+
+  return (
+    <Container>
+      <Header>Discord Messages</Header>
+      <PostContainer>
+        <Posts>
+          {posts.map((x, i) => (
+            <WorkPost key={i} {...x} />
+          ))}
+        </Posts>
+      </PostContainer>
+    </Container>
+  );
+>>>>>>> c81a29343909213f4222b81ce868b559568f9b87
 }
 const Container = styled(Widget)`
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    height: 100%;
-    width: 100%;
-    padding: 15px;
-`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  grid-row: 6 / 11;
+`;
 
 const PostContainer = styled.div`
-    overflow-y: auto;
+  overflow-y: auto;
 
-    /* width */
-    ::-webkit-scrollbar {
+  /* width */
+  ::-webkit-scrollbar {
     width: 3px;
     margin-left: 20px;
-    }
+  }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-    background: ${props => props.theme.calendar.events.colour.background}
-    }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${(props) => props.theme.calendar.events.colour.background};
+  }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
     background: #888;
-    }
+  }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
     background: #555;
-    }
-`
+  }
+`;
 
 const Posts = styled.div`
-    display: flex;
-    flex-direction: column-reverse;
-    row-gap: 15px;
-`
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 15px;
+`;
 
 export default WorkMessages;

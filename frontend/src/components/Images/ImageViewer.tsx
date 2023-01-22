@@ -42,13 +42,13 @@ const Container = styled(Widget)`
   height: 100%;
   width: 100%;
   padding: 15px;
-  /* grid-row: 1 / 3; */
+  grid-row: 6 / 11;
 `;
 
 const ImageSlide = styled.img`
   margin-top: 10px;
   max-width: 100%;
-  max-height: 360px;
+  max-height: 330px;
 `;
 
 const EachSlide = styled.div`

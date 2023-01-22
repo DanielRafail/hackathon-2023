@@ -10,7 +10,7 @@ export type CalendarEventType = {
     type: string
 }
 
-type EventTypes = "financial" | "social" | "deadline"
+type EventTypes = "entrepreneur" | "social" | "development"
 
 function CalendarEvent(props: CalendarEventType) {
     const { day, month, title, time, location, information, type } = props;

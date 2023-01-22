@@ -19,8 +19,8 @@ declare module 'styled-components' {
             events: {
                 colour: {
                     background: string,
-                    financial: string,
-                    deadline: string,
+                    entrepreneur: string,
+                    development: string,
                     social: string
                 }
             }
