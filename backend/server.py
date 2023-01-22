@@ -59,6 +59,13 @@ def receive_new_message():
 	messageHistory.extend(data)
 	socketio.emit("WorkMessage", data)
 	return {}
+
+@app.route("/api/sendImages", methods=["POST"])
+def receive_new_image():
+	data = request.get_json()
+	images.extend(data)
+	socketio.emit("WorkFromHomeImages", data)
+	return {}
  
 if __name__ == "__main__":
 	app.run(debug=True, host='0.0.0.0',) 
