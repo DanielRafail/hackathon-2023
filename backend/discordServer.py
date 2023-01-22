@@ -20,12 +20,11 @@ async def on_ready():
     historySize = 5
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == "discordtest":
-                async for message in channel.history(limit=historySize):
-                    if message.author != client.user:
-                        setData(data, message)
-                        if len(data) == historySize:
-                            break
+            async for message in channel.history(limit=historySize):
+                if message.author != client.user:
+                    setData(data, message, channel)
+                    if len(data) == historySize:
+                        break
                     
     print(f'Sending the data {data}')
     requests.post("http://127.0.0.1:5000/api/messageHistory", json=data)
@@ -43,12 +42,12 @@ async def on_message(message):
     
     async for msg in message.channel.history(limit=historySize):
       if msg.author != client.user:
-        setData(data, msg)
+        setData(data, msg, message.channel)
     
     print(f'Sending the data {data}')
     requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
     
-def setData(data, message):
+def setData(data, message, channel):
     pfp = message.author.avatar
     localCreatedAt = datetime_from_utc_to_local(message.created_at)
     time = str(localCreatedAt)[0:str(localCreatedAt).index(".")].split(" ")
@@ -56,13 +55,14 @@ def setData(data, message):
     if len(message.attachments) > 0:
         for image in message.attachments:
             imgs.append(image.url) 
-    data.append({
+            data.append({
 					'id': message.id,
 					'postText': message.content,
 					'time': time[1] + " " +  time[0],
 					'userName': message.author.name,
-					"userIcon": pfp.url if pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
-					'images': imgs
+					"userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
+					'images': imgs,
+                    'channel' : channel.name
 				})
  
 

@@ -24,6 +24,15 @@ declare module 'styled-components' {
                     social: string
                 }
             }
+        },
+        jira: {
+            project: {
+                colour: {
+                    good: string,
+                    warning: string,
+                    alert: string
+                }
+            }
         }
     }
 }

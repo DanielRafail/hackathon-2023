@@ -1,29 +1,27 @@
 import styled from "styled-components";
 import Widget from "../Widget";
-// import CalendarEvent, { CalendarEventType } from "./CalendarEvent";
 import Header from "../Header";
 import { useState } from "react";
+import Project from "./Project";
 
 type IProps = {
 
 }
 
 function Jira(props: IProps) {
-    // const {  } = props;
-    // const [events, setEvents] = useState<CalendarEventType[]>(calendarInformation);
+    const {  } = props;
+    const [epics, setEpics] = useState();
 
-    // return (
-    //     <Container>
-    //         <Header>Projects</Header>
-    //         <EventsContainer>
-    //             <Events>
-    //                 {
-    //                     events.map((x: CalendarEventType) => <CalendarEvent key={`${x.day}-${x.month}-${x.title}`} {...x}/>)
-    //                 }
-    //             </Events>
-    //         </EventsContainer>
-    //     </Container>
-    // );
+    return (
+        <Container>
+            <Header>Milestones</Header>
+            <ProjectContainer>
+                <Projects>
+                    {projects.map(x => <Project key={x.projectName} {...x}/>)}
+                </Projects>
+            </ProjectContainer>
+        </Container>
+    );
 }
 
 const Container = styled(Widget)`
@@ -33,10 +31,10 @@ const Container = styled(Widget)`
     height: 100%;
     width: 100%;  
     padding: 15px;
-    grid-row: 1 / 3;
+    /* grid-row: 1 / 3; */
 `
 
-const EventsContainer = styled.div`
+const ProjectContainer = styled.div`
     overflow-y: auto;
 
     /* width */
@@ -58,6 +56,38 @@ const EventsContainer = styled.div`
     ::-webkit-scrollbar-thumb:hover {
     background: #555;
     }
+
+    padding: 10px 10px;
 `
+
+const Projects = styled.div`
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+`
+
+const projects = [
+    {
+        projectName: "Release 1",
+        itemsCompleted: 14,
+        totalItems: 100,
+        endDate: "2023-01-29",
+        status: "alert"
+    },
+    {
+        projectName: "Release 3",
+        itemsCompleted: 90,
+        totalItems: 100,
+        endDate: "2023-08-29",
+        status: "warning"
+    },
+    {
+        projectName: "Release 2",
+        itemsCompleted: 40,
+        totalItems: 100,
+        endDate: "2024-01-29",
+        status: "good"
+    },
+]
 
 export default Jira;
