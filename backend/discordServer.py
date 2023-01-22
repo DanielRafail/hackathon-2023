@@ -62,6 +62,10 @@ async def on_message(message):
     if (len(data) == 0):
         return
     
+    print("SENDING *********************************************")
+    print("SENDING *********************************************")
+    print("SENDING *********************************************")
+    print("SENDING *********************************************")
     print(f'Sending the data {data}')
     
     if (imageHashTag in data["postText"]):
