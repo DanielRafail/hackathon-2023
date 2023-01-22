@@ -119,7 +119,7 @@ const ProjectContainer = styled.div`
 const Projects = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 25px;
 `;
 
 const mockProjects = [
