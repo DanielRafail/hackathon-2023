@@ -16,9 +16,15 @@ function WorkMessages(props: IProps) {
     
     useEffect(() => {
         if (socket) {
-            socket.on("SocialMediaPost", (data: IWorkPost[]) => {
+            socket.on("WorkMessage", (data: IWorkPost[]) => {
+                console.log("POST:")
+                console.log(posts);
+                console.log("Data:")
                 console.log(data);
-                setPosts([...posts, ...data]);
+                console.log("Combined:")
+                console.log(posts.concat(data[0]));
+                setPosts(posts.concat(data[0]));
+                console.log("New post data")
             });
         }
     }, [socket]);

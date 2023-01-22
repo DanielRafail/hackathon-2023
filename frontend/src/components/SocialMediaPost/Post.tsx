@@ -60,6 +60,7 @@ const Container = styled.div`
     font-size: 16px;
     column-gap: 20px;
     padding-right: 10px;
+    width: 100%;
 `
 
 const Content = styled.div`

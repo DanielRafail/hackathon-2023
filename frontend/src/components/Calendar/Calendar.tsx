@@ -108,7 +108,7 @@ const calendarInformation: CalendarEventType[] = [
         type: "deadline"
     },
     {
-        day: "06",
+        day: "08",
         month: "Jan",
         title: "Q1 Financial Report",
         time: "9:30pm",
@@ -117,7 +117,7 @@ const calendarInformation: CalendarEventType[] = [
         type: "financial"
     },
     {
-        day: "20",
+        day: "23",
         month: "May",
         title: "Jonathan's Birthday Party",
         time: "9:30pm",
@@ -126,7 +126,7 @@ const calendarInformation: CalendarEventType[] = [
         type: "social"
     },
     {
-        day: "14",
+        day: "24",
         month: "Jun",
         title: "Release 3.4",
         time: "all day",
