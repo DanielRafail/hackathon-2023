@@ -27,8 +27,7 @@ function Project(props: IProject) {
             <Information>
                 <Name>{projectName}</Name>
                 <DateAndCircle>
-                    <Circle statusColour={status as ProgressStatus}/>
-                    <EndDate>{endDate}</EndDate>
+                    <EndDate>Target: {endDate}</EndDate>
                 </DateAndCircle>
                 
             </Information>

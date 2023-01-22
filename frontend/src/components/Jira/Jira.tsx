@@ -14,7 +14,7 @@ function Jira(props: IProps) {
 
     return (
         <Container>
-            <Header>Projects</Header>
+            <Header>Milestones</Header>
             <ProjectContainer>
                 <Projects>
                     {projects.map(x => <Project key={x.projectName} {...x}/>)}
@@ -31,7 +31,7 @@ const Container = styled(Widget)`
     height: 100%;
     width: 100%;  
     padding: 15px;
-    grid-row: 1 / 3;
+    /* grid-row: 1 / 3; */
 `
 
 const ProjectContainer = styled.div`
