@@ -1,7 +1,8 @@
 import { Heart, MessageCircle, Repeat } from "react-feather";
 import styled from "styled-components";
 
-type IProps = {
+export type IPost = {
+    id: string,
     userIcon: string,
     userName: string,
     userHandler: string,
@@ -14,7 +15,7 @@ type IProps = {
     source: string
 }
 
-function Post(props: IProps) {
+function Post(props: IPost) {
     const { userIcon, userName, userHandler, time, postText, numberOfComments, numberOfLikes, numberOfShares, images, source  } = props;
 
     return (

@@ -3,13 +3,32 @@ import { Theme } from "./styling/Theme";
 import Calendar from "./components/Calendar/Calendar";
 import SocialMedia from "./components/SocialMediaPost/SocialMeadia";
 import WorkMessages from "./components/WorkChat/WorkMessages";
+import { useEffect, useState } from "react";
+import { Socket, io } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
 function Dashboard() {
+  const [socketInstance, setSocketInstance] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
+
+  useEffect(() => {
+      const socket = io('http://127.0.0.1:5000/');
+      setSocketInstance(socket);
+
+      //@ts-ignore
+      socket.on("connect", (data: any) => {
+        console.log("Connected to the socket");
+      });
+
+      return function cleanup() {
+          socket.disconnect();
+      };
+  }, []);
+
   return (
     <ThemeProvider theme={Theme}>
       <MainPage>
         <Calendar/>
-        <SocialMedia/>
+        <SocialMedia socket={socketInstance}/>
         <WorkMessages/>
       </MainPage>
     </ThemeProvider>
