@@ -26,7 +26,7 @@ def get_hot_subreddit_posts(subreddit, number_posts=10):
         data = {
             'id':submission.id,
             'title':submission.title,
-            'postText':submission.selftext,
+            # 'postText':submission.selftext,
             'userName':submission.author.name,
             'userIcon':submission.author.icon_img,
             'userHandler':submission.author.name,
@@ -35,7 +35,7 @@ def get_hot_subreddit_posts(subreddit, number_posts=10):
             'numberOfShares':0,
             'time':submission.created_utc,
             'source':'Reddit',
-            'images':[]
+            'images':[],
         }
         top_posts.append(data)
         print(data)
