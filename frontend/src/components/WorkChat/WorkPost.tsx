@@ -19,7 +19,7 @@ function Post(props: IWorkPost) {
             <Content>
                 <Details>
                     <User>
-                        <div>{userName} <InChannel>in {channel}</InChannel></div>
+                        <div>{userName} <InChannel>#{channel}</InChannel></div>
                     </User>
                     <Time>{time}</Time>
                 </Details>
