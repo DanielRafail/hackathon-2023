@@ -28,8 +28,8 @@ function Dashboard() {
     <ThemeProvider theme={Theme}>
       <MainPage>
         <Calendar/>
-        <SocialMedia socket={socketInstance}/>
         <WorkMessages socket={socketInstance}/>
+        <SocialMedia socket={socketInstance}/>
       </MainPage>
     </ThemeProvider>
   );

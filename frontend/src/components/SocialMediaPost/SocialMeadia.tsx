@@ -44,6 +44,7 @@ const Container = styled(Widget)`
     height: 100%;
     width: 100%;
     padding: 15px;
+    grid-row: 1 / 3;
 `
 
 const PostContainer = styled.div`
