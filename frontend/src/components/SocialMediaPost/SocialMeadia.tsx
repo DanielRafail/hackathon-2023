@@ -17,8 +17,9 @@ function SocialMedia(props: IProps) {
     useEffect(() => {
         if (socket) {
             socket.on("SocialMediaPost", (data: IPost[]) => {
-                console.log(data);
-                setPosts([...posts, ...data]);
+                const newPostValue = posts;
+                data.forEach(item => newPostValue.push((item)));
+                setPosts([...newPostValue]);
             });
         }
     }, [socket]);

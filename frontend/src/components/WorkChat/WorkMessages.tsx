@@ -19,8 +19,7 @@ function WorkMessages(props: IProps) {
         if (socket) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
                 const newPostValue = posts;
-                data.forEach(item => newPostValue.push((item)))
-                console.log(newPostValue)
+                data.forEach(item => newPostValue.push((item)));
                 setPosts([...newPostValue]);
             });
         }
