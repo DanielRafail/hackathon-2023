@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import discord
 import requests
+from helper.helper import datetime_from_utc_to_local
 
 load_dotenv()
 
@@ -23,7 +24,8 @@ async def on_ready():
                 async for message in channel.history(limit=historySize):
                     if message.author != client.user:
                         pfp = message.author.avatar
-                        time = str(message.created_at)[0:str(message.created_at).index(".")].split(" ")
+                        localCreatedAt = datetime_from_utc_to_local(message.created_at)
+                        time = str(localCreatedAt)[0:str(localCreatedAt).index(".")].split(" ")
                         data.append({
                                 'id': message.id,
                                 'postText': message.content,
@@ -53,7 +55,8 @@ async def on_message(message):
       if msg.author != client.user:
 
         pfp = message.author.avatar
-        time = str(message.created_at)[0:str(message.created_at).index(".")].split(" ")
+        localCreatedAt = datetime_from_utc_to_local(message.created_at)
+        time = str(localCreatedAt)[0:str(localCreatedAt).index(".")].split(" ")
         data.append({
 					'id': msg.id,
 					'postText': msg.content,
