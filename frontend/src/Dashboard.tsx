@@ -29,7 +29,7 @@ function Dashboard() {
       <MainPage>
         <Calendar/>
         <SocialMedia socket={socketInstance}/>
-        <WorkMessages/>
+        <WorkMessages socket={socketInstance}/>
       </MainPage>
     </ThemeProvider>
   );
