@@ -3,6 +3,7 @@ import Widget from "../Widget";
 import Header from "../Header";
 import { useEffect, useState } from "react";
 import Project, { IMilestone } from "./Project";
+import LoadingAnim from "../LoadingAnim";
 
 export type IProject = {
   key: string;
@@ -17,13 +18,29 @@ type IProps = {
 
 function Jira(props: IProps) {
   const { socket } = props;
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [projects, setProjects] = useState<IProject[]>([]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("Milestones", (data: string[]) => {
+        fetch("http://127.0.0.1:5000/" + "api/milestone")
+          .then((res) => res.json())
+          .then((result) => {
+            setProjects(result ? result : []);
+          })
+          .catch(console.error);
+      });
+    }
+  }, [socket]);
+
   useEffect(() => {
     fetch("http://127.0.0.1:5000/" + "api/milestone")
       .then((res) => res.json())
       .then((result) => {
         setProjects(result ? result : []);
-        console.log(result);
+        setLoading(false);
       })
       .catch(console.error);
   }, []);
@@ -31,23 +48,37 @@ function Jira(props: IProps) {
   return (
     <Container>
       <Header>Milestones</Header>
-      <ProjectContainer>
-        <Projects>
-          {projects.map((p) =>
-            p?.milestones.map(x => (
-              <Project
-                key={x.id}
-                name={p.key}
-                avatarUrls={p.avatarUrls}
-                milestone={x}
-              />
-            ))
-          )}
-        </Projects>
-      </ProjectContainer>
+      {loading  ? (
+        <Center>
+          <LoadingAnim />
+        </Center>
+      ) : (
+        <ProjectContainer>
+          <Projects>
+            {projects.map((p) =>
+              p?.milestones.map((x) => (
+                <Project
+                  key={x.id}
+                  name={p.key}
+                  avatarUrls={p.avatarUrls}
+                  milestone={x}
+                />
+              ))
+            )}
+          </Projects>
+        </ProjectContainer>
+      )}
     </Container>
   );
 }
+
+const Center = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Container = styled(Widget)`
   display: flex;
