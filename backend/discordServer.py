@@ -19,20 +19,22 @@ async def on_ready():
     global messageHistory
     data = []
     historySize = 5
+
     for guild in client.guilds:
         for channel in guild.channels:
             if isinstance(channel, discord.TextChannel):
                 async for message in channel.history(limit=historySize):
                     if message.author != client.user:
                         setData(data, message, channel)
-                        if len(data) == historySize:
-                            break
-                    
+                        
+            if len(data) == historySize:
+                break
+    
     print(f'Sending the on_ready data {data}')
     
     posts = []
     images = []
-    
+
     for post in data:
         if imageHashTag in post["postText"]:
             images.extend(post["images"])
