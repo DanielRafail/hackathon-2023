@@ -9,6 +9,8 @@ from flask_socketio import SocketIO,emit
 load_dotenv()
 
 from twitter_api import get_google_searches
+from jira_api import get_all_milestones_per_project
+
 
 app = Flask(__name__)
 
@@ -65,6 +67,34 @@ def receive_new_image():
 	images.extend(data)
 	socketio.emit("WorkFromHomeImages", images)
 	return {}
+
+@app.route("/api/milestone-update", methods=["POST"])
+def milestone_update():
+	'''
+		[
+			{
+				"SOLOG": [
+					{
+						"description": "Allow user to easily connect with our products via social logins",
+						"id": "10000",
+						"issuesCount": 1,
+						"issuesUnresolvedCount": 1,
+						"name": " Social Login Integration 2.0",
+						"overdue": false,
+						"releaseDate": "2023-02-04",
+						"self": "https://conuhack-company-demo.atlassian.net/rest/api/3/version/10000"
+					}
+				]
+			}
+		]
+	'''
+	socketio.emit("Milestones", request.get_json())
+	return {}
+
+@app.route("/api/milestone", methods=["GET"])
+def get_milestone():
+	return get_all_milestones_per_project()
+
  
 if __name__ == "__main__":
 	app.run(debug=True, host='0.0.0.0',) 

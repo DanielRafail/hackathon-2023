@@ -11,7 +11,7 @@ from reddit_api import get_hot_subreddit_posts
 while True:
     twitter_data = get_google_searches()
     print("Got {} twitter entries".format(len(twitter_data)))
-    reddit_data = get_hot_subreddit_posts("google", 20)
+    reddit_data = [] # get_hot_subreddit_posts("google", 20)
     print("Got {} reddit entries".format(len(reddit_data)))
 
     combined_posts = list(twitter_data + reddit_data)

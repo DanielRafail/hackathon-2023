@@ -31,7 +31,7 @@ function Dashboard() {
     <ThemeProvider theme={Theme}>
       <MainPage>
         <SocialMedia socket={socketInstance}/>
-        <Jira/>
+        <Jira socket={socketInstance}/>
         <Calendar/>
         <ImageViewer socket={socketInstance}/>
         <WorkMessages socket={socketInstance}/>
