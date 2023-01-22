@@ -56,7 +56,6 @@ def receive_message_history():
 @app.route("/api/sendNewMessage", methods=["POST"])
 def receive_new_message():
 	data = request.get_json()
-	print(data)
 	messageHistory.extend(data)
 	socketio.emit("WorkMessage", data)
 	return {}

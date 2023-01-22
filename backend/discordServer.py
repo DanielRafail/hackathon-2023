@@ -62,7 +62,7 @@ async def on_message(message):
     if (imageHashTag in data[0]["postText"]):
         requests.post("http://127.0.0.1:5000/api/sendImages", json=data[0].images)
     else:
-        requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data[0])
+        requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
     
 def setData(data, message, channel):
     pfp = message.author.avatar
