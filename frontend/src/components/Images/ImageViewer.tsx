@@ -27,12 +27,12 @@ function ImageViewer(props: IProps) {
 
     return (
         <Container>
-            <Header>#WorkStation</Header>
+            <Header>#WorkStation {images.length}</Header>
             <Slide {...properties}>
                 {images.map((each, index) => (
-                <div key={index} className="each-slide">
+                <EachSlide key={index} className="each-slide">
                     <ImageSlide className="lazy" src={each} alt="sample" />
-                </div>
+                </EachSlide>
                 ))}
             </Slide>
         </Container>
@@ -48,7 +48,14 @@ const Container = styled(Widget)`
 
 const ImageSlide = styled.img`
     margin-top: 10px;
-    width: 100%;
+    max-width: 100%;
+    max-height: 360px;
+`
+
+const EachSlide = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const properties = {

@@ -1,4 +1,3 @@
-import threading
 from flask import Flask, request, redirect
 import os
 from dotenv import load_dotenv
@@ -20,14 +19,16 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 messageHistory = []
 images = []
+socialMediaPosts = []
 
 @socketio.on("connect")
 def connected():
 	"""event listener when client connects to the server"""
 	emit("connect",{"data":f"id: {request.sid} is connected"})
-	print(images)
+	print(socialMediaPosts)
 	emit("WorkMessage", messageHistory)
 	emit("WorkFromHomeImages", images)
+	socketio.emit("SocialMediaPost", socialMediaPosts)
 
 @socketio.on("disconnect")
 def disconnected():
@@ -39,6 +40,8 @@ def disconnected():
 def get_twitter_searches():
     print("sending social media post")
     data = request.get_json()
+    socialMediaPosts.clear()
+    socialMediaPosts.extend(data)
     socketio.emit("SocialMediaPost", data)
     return {}
 
@@ -60,10 +63,9 @@ def receive_new_message():
 def receive_new_image():
 	data = request.get_json()
 	images.extend(data)
-	socketio.emit("WorkFromHomeImages", data)
+	socketio.emit("WorkFromHomeImages", images)
 	return {}
  
- 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',) 
-    socketio.run(app, debug=True)
+	app.run(debug=True, host='0.0.0.0',) 
+	socketio.run(app, debug=True)

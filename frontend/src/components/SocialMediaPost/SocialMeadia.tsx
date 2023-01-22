@@ -20,6 +20,8 @@ function SocialMedia(props: IProps) {
                 const newPostValue = posts;
                 data.forEach(item => newPostValue.push((item)));
                 setPosts([...newPostValue]);
+
+                console.log(data);
             });
         }
     }, [socket]);
