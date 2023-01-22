@@ -1,15 +1,27 @@
 import styled from "styled-components";
 import Widget from "../Widget";
 import Header from "../Header";
-import WorkPost from "./WorkPost";
-
+import WorkPost, { IWorkPost } from "./WorkPost";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { useEffect, useState } from "react";
 
 type IProps = {
-
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | undefined
 }
 
 function WorkMessages(props: IProps) {
-    const {  } = props;
+    const { socket } = props;
+    const [posts, setPosts] = useState<IWorkPost[]>([]);
+    
+    useEffect(() => {
+        if (socket) {
+            socket.on("SocialMediaPost", (data: IWorkPost[]) => {
+                console.log(data);
+                setPosts([...posts, ...data]);
+            });
+        }
+    }, [socket]);
 
     return (
         <Container>

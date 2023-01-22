@@ -21,7 +21,7 @@ function SocialMedia(props: IProps) {
                 setPosts([...posts, ...data]);
             });
         }
-    }, [socket])
+    }, [socket]);
 
 
     return (
