@@ -6,17 +6,38 @@ from base64 import b64encode
 import json
 from flask_cors import CORS
 import discord
+from flask import abort
+from flask_socketio import SocketIO,emit
+import threading
+import random
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'secret!'
+
 load_dotenv()
-CORS(app)
+CORS(app, resources={r"/*":{"origins":"*"}})
+socketio = SocketIO(app, cors_allowed_origins="*")
+
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 guild = discord.Guild
 
 messageHistory = []
 lastMessage = None
+
+@socketio.on("connect")
+def connected():
+	"""event listener when client connects to the server"""
+	print(request.sid)
+	print("client has connected")
+	emit("connect",{"data":f"id: {request.sid} is connected"})
+
+@socketio.on("disconnect")
+def disconnected():
+    """event listener when client disconnects to the server"""
+    print("user disconnected")
+    emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
 
 
 @client.event
@@ -69,4 +90,5 @@ def getHistory():
 
 if __name__ == "__main__":
     client.run(os.environ["discord_bot_token"])
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0') 
+    socketio.run(app, debug=True)
