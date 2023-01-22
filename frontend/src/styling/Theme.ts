@@ -18,8 +18,8 @@ export const Theme: DefaultTheme = {
     events: {
       colour: {
         background: "#31353f",
-        financial: "#9ABF97",
-        deadline: "#CF6363",
+        entrepreneur: "#9ABF97",
+        development: "#CF6363",
         social: "#73ADBF",
       },
     },
