@@ -6,6 +6,8 @@ import WorkMessages from "./components/WorkChat/WorkMessages";
 import { useEffect, useState } from "react";
 import { Socket, io } from "socket.io-client";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import Jira from "./components/Jira/Jira";
+import ImageViewer from "./components/Images/ImageViewer";
 
 function Dashboard() {
   const [socketInstance, setSocketInstance] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
@@ -27,8 +29,10 @@ function Dashboard() {
   return (
     <ThemeProvider theme={Theme}>
       <MainPage>
-        <Calendar/>
         <SocialMedia socket={socketInstance}/>
+        <Jira/>
+        <Calendar/>
+        <ImageViewer socket={socketInstance}/>
         <WorkMessages socket={socketInstance}/>
       </MainPage>
     </ThemeProvider>

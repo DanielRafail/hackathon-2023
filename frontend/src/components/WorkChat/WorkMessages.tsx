@@ -12,14 +12,16 @@ type IProps = {
 
 function WorkMessages(props: IProps) {
     const { socket } = props;
-    console.log("RERENDERING");
     const [posts, setPosts] = useState<IWorkPost[]>([]);
-    
+
     useEffect(() => {
         if (socket) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
                 const newPostValue = posts;
-                data.forEach(item => newPostValue.push((item)));
+                
+                data.forEach(item => {
+                    newPostValue.push(item)
+                });
                 setPosts([...newPostValue]);
             });
         }
@@ -30,7 +32,7 @@ function WorkMessages(props: IProps) {
             <Header>Discord Messages</Header>
             <PostContainer>
                 <Posts>
-                    {posts.map(x => <WorkPost key={x.id} {...x}/>)}
+                    {posts.map(x => <WorkPost key={x.id} {...x} />)}
                 </Posts>
             </PostContainer>
         </Container>

@@ -1,7 +1,5 @@
 import requests
 import os
-import json
-import urllib.parse
 
 # To set your environment variables in your terminal run the following line:
 # export 'BEARER_TOKEN'='<your_bearer_token>'
@@ -41,12 +39,13 @@ def replace_keys(data):
 
     for post in data["data"]:
         user = user_dict[post["author_id"]]
-
+        
         formatted_post = {
             "id": post["id"],
             "userName": user["name"],
             "userHandler": user["username"],
-            "time": post["created_at"],
+            "userIcon": user["profile_image_url"],
+            "time": "9:00pm", #post["created_at"],
             "postText": post["text"],
             "numberOfComments": post["public_metrics"]["reply_count"],
             "numberOfShares": post["public_metrics"]["retweet_count"],

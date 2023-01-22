@@ -2,9 +2,11 @@ import os
 from dotenv import load_dotenv
 import discord
 import requests
+from helper.helper import datetime_from_utc_to_local
 
 load_dotenv()
 
+imageHashTag = "#WorkStation"
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -16,26 +18,31 @@ messageHistory = []
 async def on_ready():
     global messageHistory
     data = []
-    historySize = 1
+    historySize = 5
     for guild in client.guilds:
         for channel in guild.channels:
-            if channel.name == "discordtest":
+            try:
                 async for message in channel.history(limit=historySize):
                     if message.author != client.user:
-                        pfp = message.author.avatar
-                        data.append({
-                                'id': message.id,
-                                'postText': message.content,
-                                'time': "message.created_at",
-                                'userName': message.author.name,
-                                "userIcon": pfp.url,
-                                'images': []
-                            })
+                        setData(data, message, channel)
                         if len(data) == historySize:
                             break
+            except:
+                pass
                     
     print(f'Sending the data {data}')
-    requests.post("http://127.0.0.1:5000/api/messageHistory", json=data)
+    
+    posts = []
+    images = []
+    
+    for post in data:
+        if imageHashTag in post["postText"]:
+            images.extend(post["images"])
+        else:
+            posts.append(post)
+    
+    requests.post("http://127.0.0.1:5000/api/sendImages", json=images)
+    requests.post("http://127.0.0.1:5000/api/messageHistory", json=posts)
 
 
 @client.event
@@ -50,19 +57,40 @@ async def on_message(message):
     
     async for msg in message.channel.history(limit=historySize):
       if msg.author != client.user:
-
-        pfp = message.author.avatar
-        data.append({
-					'id': msg.id,
-					'postText': msg.content,
-					'time': "message.created_at",
-					'userName': message.author.name,
-					"userIcon": pfp.url,
-					'images': []
-				})
+        setData(data, msg, message.channel)
     
+    if (len(data) == 0):
+        return
+    
+    print("SENDING *********************************************")
+    print("SENDING *********************************************")
+    print("SENDING *********************************************")
+    print("SENDING *********************************************")
     print(f'Sending the data {data}')
-    requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
+    
+    if (imageHashTag in data["postText"]):
+        requests.post("http://127.0.0.1:5000/api/sendImages", json=data.images)
+    else:
+        requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
+    
+def setData(data, message, channel):
+    pfp = message.author.avatar
+    localCreatedAt = datetime_from_utc_to_local(message.created_at)
+    time = str(localCreatedAt)[0:str(localCreatedAt).index(".")].split(" ")
+    imgs = []
+    if len(message.attachments) > 0:
+        for image in message.attachments:
+            imgs.append(image.url) 
+        
+        data.append({
+                'id': message.id,
+                'postText': message.content,
+                'time': time[1],
+                'userName': message.author.name,
+                "userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
+                'images': imgs,
+                'channel' : channel.name
+            })
  
 
 if __name__ == "__main__":
