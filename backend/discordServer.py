@@ -16,7 +16,7 @@ messageHistory = []
 async def on_ready():
     global messageHistory
     data = []
-    historySize = 1
+    historySize = 4
     for guild in client.guilds:
         for channel in guild.channels:
             if channel.name == "discordtest":

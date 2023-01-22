@@ -24,6 +24,7 @@ messageHistory = []
 def connected():
 	"""event listener when client connects to the server"""
 	emit("connect",{"data":f"id: {request.sid} is connected"})
+	print(messageHistory)
 	emit("WorkMessage", messageHistory)
 
 @socketio.on("disconnect")

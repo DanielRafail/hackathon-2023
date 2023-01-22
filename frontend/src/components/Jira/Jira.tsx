@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Widget from "../Widget";
-import CalendarEvent, { CalendarEventType } from "./CalendarEvent";
 import Header from "../Header";
 import { useState } from "react";
 
@@ -10,17 +9,12 @@ type IProps = {
 
 function Jira(props: IProps) {
     const {  } = props;
-    const [events, setEvents] = useState<CalendarEventType[]>(calendarInformation);
+    // const [events, setEvents] = useState<CalendarEventType[]>(calendarInformation);
 
     return (
         <Container>
             <Header>Projects</Header>
             <EventsContainer>
-                <Events>
-                    {
-                        events.map((x: CalendarEventType) => <CalendarEvent key={`${x.day}-${x.month}-${x.title}`} {...x}/>)
-                    }
-                </Events>
             </EventsContainer>
         </Container>
     );
