@@ -21,16 +21,14 @@ async def on_ready():
     historySize = 5
     for guild in client.guilds:
         for channel in guild.channels:
-            try:
+            if isinstance(channel, discord.TextChannel):
                 async for message in channel.history(limit=historySize):
                     if message.author != client.user:
                         setData(data, message, channel)
                         if len(data) == historySize:
                             break
-            except:
-                pass
                     
-    print(f'Sending the data {data}')
+    print(f'Sending the on_ready data {data}')
     
     posts = []
     images = []
@@ -58,20 +56,13 @@ async def on_message(message):
     async for msg in message.channel.history(limit=historySize):
       if msg.author != client.user:
         setData(data, msg, message.channel)
-    
-    if (len(data) == 0):
+    if len(data) == 0:
         return
-    
-    print("SENDING *********************************************")
-    print("SENDING *********************************************")
-    print("SENDING *********************************************")
-    print("SENDING *********************************************")
-    print(f'Sending the data {data}')
-    
-    if (imageHashTag in data["postText"]):
-        requests.post("http://127.0.0.1:5000/api/sendImages", json=data.images)
+    print(f'Sending the on_message data {data}')
+    if (imageHashTag in data[0]["postText"]):
+        requests.post("http://127.0.0.1:5000/api/sendImages", json=data[0].images)
     else:
-        requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data)
+        requests.post("http://127.0.0.1:5000/api/sendNewMessage", json=data[0])
     
 def setData(data, message, channel):
     pfp = message.author.avatar
@@ -81,17 +72,15 @@ def setData(data, message, channel):
     if len(message.attachments) > 0:
         for image in message.attachments:
             imgs.append(image.url) 
-        
-        data.append({
-                'id': message.id,
-                'postText': message.content,
-                'time': time[1],
-                'userName': message.author.name,
-                "userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
-                'images': imgs,
-                'channel' : channel.name
-            })
- 
+    data.append({
+        'id': message.id,
+        'postText': message.content,
+        'time': time[1],
+        'userName': message.author.name,
+        "userIcon": pfp.url if pfp and pfp.url else "https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png",
+        'images': imgs,
+        'channel' : channel.name
+        })
 
 if __name__ == "__main__":
     client.run(os.environ["discord_bot_token"])
