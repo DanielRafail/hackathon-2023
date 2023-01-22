@@ -12,17 +12,15 @@ type IProps = {
 
 function WorkMessages(props: IProps) {
     const { socket } = props;
+    console.log("RERENDERING");
     const [posts, setPosts] = useState<IWorkPost[]>([]);
     
     useEffect(() => {
         if (socket) {
             socket.on("WorkMessage", (data: IWorkPost[]) => {
-                console.log("POSTS:",posts);
-                console.log("DATA:",data);
-                let ff = [...posts, ...data];
-                console.log([...posts, ...data]);
-                setPosts([...posts, ...data]);
-                console.log(posts);
+                const newPostValue = posts;
+                data.forEach(item => newPostValue.push((item)));
+                setPosts([...newPostValue]);
             });
         }
     }, [socket]);
@@ -74,7 +72,7 @@ const PostContainer = styled.div`
 
 const Posts = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     row-gap: 15px;
 `
 

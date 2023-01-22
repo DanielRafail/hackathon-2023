@@ -22,7 +22,7 @@ function Post(props: IWorkPost) {
                     </User>
                     <Time>{time}</Time>
                 </Details>
-                <div>{postText}</div>
+                <PostText>{postText}</PostText>
                 {
                     images.map(x => <PostedImage src={x}/>)
                 }
@@ -42,7 +42,8 @@ const Container = styled.div`
 const Content = styled.div`
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 5px;
+    width: 100%;
 `
 
 const Details = styled.div`
@@ -54,6 +55,10 @@ const Details = styled.div`
 const PostedImage = styled.img`
     border-radius: 5px;
     max-width: calc(100% - 1px);
+`
+
+const PostText = styled.div`
+    color: ${props => props.theme.widget.colour.subText};
 `
 
 const UserIcon = styled.img`
